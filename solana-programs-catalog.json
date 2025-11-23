@@ -1,0 +1,276 @@
+{
+  "repository": "scope",
+  "repository_url": "https://github.com/Kamino-Finance/scope",
+  "description": "Scope is Kamino's oracle aggregator",
+  "programs": [
+    {
+      "name": "scope",
+      "program_id": "HFn8GnPADiny6XqUoWE8uRPPxb29ikn4yTuPa9MF2fWJ",
+      "path": "programs/scope",
+      "lib_file": "programs/scope/src/lib.rs",
+      "description": "Main Scope oracle aggregator program",
+      "instructions": [
+        {
+          "name": "initialize",
+          "handler_file": "programs/scope/src/handlers/handler_initialize.rs",
+          "parameters": [
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the oracle feed to initialize"
+            }
+          ],
+          "description": "Initialize a new oracle feed with configuration, mappings, prices, and metadata accounts"
+        },
+        {
+          "name": "refresh_price_list",
+          "handler_file": "programs/scope/src/handlers/handler_refresh_prices.rs",
+          "parameters": [
+            {
+              "name": "tokens",
+              "type": "Vec<u16>",
+              "description": "List of token indices to refresh prices for"
+            }
+          ],
+          "description": "Refresh prices for a list of tokens from their respective oracle sources"
+        },
+        {
+          "name": "refresh_chainlink_price",
+          "handler_file": "programs/scope/src/handlers/handler_refresh_chainlink_price.rs",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "u16",
+              "description": "Token index to update"
+            },
+            {
+              "name": "serialized_chainlink_report",
+              "type": "Vec<u8>",
+              "description": "Serialized Chainlink oracle report data"
+            }
+          ],
+          "description": "Refresh price from Chainlink oracle using serialized report"
+        },
+        {
+          "name": "refresh_pyth_lazer_price",
+          "handler_file": "programs/scope/src/handlers/handler_refresh_pyth_lazer_price.rs",
+          "parameters": [
+            {
+              "name": "tokens",
+              "type": "Vec<u16>",
+              "description": "List of token indices in the same order as found in the message payload"
+            },
+            {
+              "name": "serialized_pyth_message",
+              "type": "Vec<u8>",
+              "description": "Serialized Pyth Lazer message containing price data"
+            },
+            {
+              "name": "ed25519_instruction_index",
+              "type": "u16",
+              "description": "Index of the Ed25519 verification instruction"
+            }
+          ],
+          "description": "Refresh prices from Pyth Lazer oracle (tokens must be in same order as in message payload)"
+        },
+        {
+          "name": "update_mapping_and_metadata",
+          "handler_file": "programs/scope/src/handlers/handler_update_mapping_and_metadata.rs",
+          "parameters": [
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the feed to update"
+            },
+            {
+              "name": "updates",
+              "type": "Vec<UpdateOracleMappingAndMetadataEntriesWithId>",
+              "description": "Vector of oracle mapping and metadata updates with entry IDs"
+            }
+          ],
+          "description": "Update oracle mappings and token metadata for the specified feed"
+        },
+        {
+          "name": "reset_twap",
+          "handler_file": "programs/scope/src/handlers/handler_reset_twap.rs",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "u64",
+              "description": "Token entry ID to reset TWAP for"
+            },
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the feed"
+            }
+          ],
+          "description": "Reset the time-weighted average price (TWAP) for a specific token"
+        },
+        {
+          "name": "set_admin_cached",
+          "handler_file": "programs/scope/src/handlers/handler_set_admin_cached.rs",
+          "parameters": [
+            {
+              "name": "new_admin",
+              "type": "Pubkey",
+              "description": "Public key of the new admin to be cached"
+            },
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the feed"
+            }
+          ],
+          "description": "Set a new admin in cached state (requires approval to take effect)"
+        },
+        {
+          "name": "approve_admin_cached",
+          "handler_file": "programs/scope/src/handlers/handler_approve_admin_cached.rs",
+          "parameters": [
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the feed"
+            }
+          ],
+          "description": "Approve the cached admin change and make it active"
+        },
+        {
+          "name": "create_mint_map",
+          "handler_file": "programs/scope/src/handlers/handler_create_mint_map.rs",
+          "parameters": [
+            {
+              "name": "seed_pk",
+              "type": "Pubkey",
+              "description": "Seed public key for PDA derivation"
+            },
+            {
+              "name": "seed_id",
+              "type": "u64",
+              "description": "Seed ID for PDA derivation"
+            },
+            {
+              "name": "bump",
+              "type": "u8",
+              "description": "PDA bump seed"
+            },
+            {
+              "name": "scope_chains",
+              "type": "Vec<[u16; 4]>",
+              "description": "Vector of scope chains (arrays of 4 u16 values)"
+            }
+          ],
+          "description": "Create a mint map to associate mints with scope chains"
+        },
+        {
+          "name": "close_mint_map",
+          "handler_file": "programs/scope/src/handlers/handler_close_mint_map.rs",
+          "parameters": [],
+          "description": "Close a mint map account and reclaim rent"
+        },
+        {
+          "name": "resume_chainlinkx_price",
+          "handler_file": "programs/scope/src/handlers/handler_resume_chainlinkx_price.rs",
+          "parameters": [
+            {
+              "name": "token",
+              "type": "u16",
+              "description": "Token index to resume price updates for"
+            },
+            {
+              "name": "feed_name",
+              "type": "String",
+              "description": "Name of the feed (used for configuration account seeds)"
+            }
+          ],
+          "description": "Resume ChainlinkX price updates for a specific token"
+        }
+      ]
+    },
+    {
+      "name": "perpetuals",
+      "program_id": "PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu",
+      "path": "programs/jup-perp-itf",
+      "lib_file": "programs/jup-perp-itf/src/lib.rs",
+      "description": "Interface to interact with JUP Perpetual Protocol (partial)",
+      "instructions": [
+        {
+          "name": "get_assets_under_management",
+          "handler_file": "programs/jup-perp-itf/src/lib.rs",
+          "parameters": [
+            {
+              "name": "mode",
+              "type": "Option<PriceCalcMode>",
+              "description": "Optional price calculation mode (Min, Max, or Ignore)"
+            }
+          ],
+          "description": "Get assets under management for the perpetuals protocol (interface only, not implemented)"
+        }
+      ]
+    },
+    {
+      "name": "adrena",
+      "program_id": "13gDzEXCdocbj8iAiqrScGo47NiSuYENGsRqi3SEAwet",
+      "path": "programs/adrena-perp-itf",
+      "lib_file": "programs/adrena-perp-itf/src/lib.rs",
+      "description": "Interface to interact with Adrena Perpetual Protocol (partial)",
+      "instructions": []
+    },
+    {
+      "name": "flashtrade",
+      "program_id": "FLASH6Lo6h3iasJKWDs2F8TkW2UKf3s15C8PMGuVfgBn",
+      "path": "programs/flashtrade-perp-itf",
+      "lib_file": "programs/flashtrade-perp-itf/src/lib.rs",
+      "description": "Interface for Flashtrade perpetual protocol",
+      "instructions": []
+    },
+    {
+      "name": "perpetuals",
+      "program_id": "LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo",
+      "path": "programs/lb-clmm-itf",
+      "lib_file": "programs/lb-clmm-itf/src/lib.rs",
+      "description": "Interface for LB CLMM (Concentrated Liquidity Market Maker)",
+      "instructions": []
+    },
+    {
+      "name": "redstone-itf",
+      "program_id": "REDSTBDUecGjwXd6YGPzHSvEUBHQqVRfCcjUVgPiHsr",
+      "path": "programs/redstone-itf",
+      "lib_file": "programs/redstone-itf/src/lib.rs",
+      "description": "Interface for Redstone oracle",
+      "instructions": []
+    },
+    {
+      "name": "sbod-itf",
+      "program_id": "SBondMDrcV3K4kxZR1HNVT7osZxAHVHgYXL5Ze1oMUv",
+      "path": "programs/sbod-itf",
+      "lib_file": "programs/sbod-itf/src/lib.rs",
+      "description": "Interface for SBond protocol",
+      "instructions": []
+    },
+    {
+      "name": "securitize-itf",
+      "program_id": "9N3yqarWXmXJ9NQBGgN47JXV82smby8nSMffkwetgYov",
+      "path": "programs/securitize-itf",
+      "lib_file": "programs/securitize-itf/src/lib.rs",
+      "description": "Interface for Securitize protocol",
+      "instructions": []
+    },
+    {
+      "name": "switchbord-itf",
+      "program_id": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+      "path": "programs/switchbord-itf",
+      "lib_file": "programs/switchbord-itf/src/lib.rs",
+      "description": "Interface for Switchboard oracle",
+      "instructions": []
+    }
+  ],
+  "summary": {
+    "total_programs": 9,
+    "total_instructions": 12,
+    "programs_with_instructions": 2,
+    "interface_only_programs": 7,
+    "note": "scope-types and yvaults_stub are not included as they are type libraries, not programs"
+  }
+}

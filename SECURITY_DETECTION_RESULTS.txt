@@ -1,0 +1,111 @@
+SOLANA PROGRAM SECURITY DETECTION RESULTS
+==========================================
+Date: 2025-11-23
+Programs: 2 (scope, perpetuals)
+Instructions: 12
+Vulnerability Types: 6
+
+==========================================
+EXFILTRATION DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+DOS (CU EXHAUSTION) DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+UNSYNCED WSOL ATA DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+INSUFFICIENT OWNERSHIP CHECK DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+ROUNDING BUG DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+UNCHECKED TYPE CASTING DETECTION RESULTS
+==========================================
+scope initialize: ok
+scope refresh_price_list: ok
+scope refresh_chainlink_price: ok
+scope refresh_pyth_lazer_price: ok
+scope update_mapping_and_metadata: ok
+scope reset_twap: ok
+scope set_admin_cached: ok
+scope approve_admin_cached: ok
+scope create_mint_map: ok
+scope close_mint_map: ok
+scope resume_chainlinkx_price: ok
+perpetuals get_assets_under_management: ok
+
+==========================================
+SUMMARY
+==========================================
+Total Checks: 72 (12 instructions × 6 vulnerability types)
+Issues Found: 0
+Pass Rate: 100%
+
+All instructions passed all security checks! ✅
