@@ -1,7 +1,6 @@
 use std::num::TryFromIntError;
 
 use anchor_lang::prelude::*;
-use decimal_wad::error::DecimalError;
 use num_enum::{TryFromPrimitive, TryFromPrimitiveError};
 
 #[error_code]
@@ -201,6 +200,9 @@ pub enum ScopeError {
 
     #[msg("TWAP source index not set")]
     TwapSourceIndexNotSet,
+
+    #[msg("Property fields in the feed of the PythLazer payload do not contain a feed update timestamp")]
+    PythLazerFeedUpdateTimestampNotPresent,
 }
 
 impl<T> From<TryFromPrimitiveError<T>> for ScopeError
@@ -219,11 +221,3 @@ impl From<TryFromIntError> for ScopeError {
 }
 
 pub type ScopeResult<T = ()> = std::result::Result<T, ScopeError>;
-
-impl From<DecimalError> for ScopeError {
-    fn from(err: DecimalError) -> ScopeError {
-        match err {
-            DecimalError::MathOverflow => ScopeError::IntegerOverflow,
-        }
-    }
-}

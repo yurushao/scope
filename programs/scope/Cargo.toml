@@ -1,6 +1,6 @@
 [package]
 name = "scope"
-version = "0.26.1"
+version = "0.33.0"
 description = "Scope is Kamino's oracle aggregator"
 repository = "https://github.com/Kamino-Finance/scope"
 edition = "2021"
@@ -37,7 +37,7 @@ bytemuck = { version = "1.4.0", features = ["min_const_generics", "derive"] }
 num_enum = "0.7.0"
 cfg-if = "1.0.0"
 serde = { version = "1.0.136", optional = true }
-strum = { git = "https://github.com/Kamino-Finance/strum", features = ["derive"], branch = "checked_arithmetics" }
+strum = { version = "0.27", features = ["derive"] }
 pyth-sdk-solana = "0.10.1"
 switchboard-program = "0.2.0"
 arrayref = "0.3.6"
@@ -62,10 +62,10 @@ lb-clmm-itf = { path = "../lb-clmm-itf", features = ["no-entrypoint"] }
 sbod-itf = { path = "../sbod-itf" }
 redstone-itf = { path = "../redstone-itf", features = ["no-entrypoint"] }
 adrena-perp-itf = { path = "../adrena-perp-itf", features = ["no-entrypoint"] }
-pyth-lazer-solana-contract = { git = "https://github.com/Kamino-Finance/pyth-crosschain.git", branch = "lazer_on_anchor_0.29", features = [
+pyth-lazer-solana-contract = { git = "https://github.com/Kamino-Finance/pyth-lazer-public.git", branch = "lazer_on_anchor_0.28", features = [
     "no-entrypoint",
 ] }
-pyth-lazer-protocol = { git = "https://github.com/Kamino-Finance/pyth-crosschain.git", branch = "lazer_on_anchor_0.29" }
+pyth-lazer-protocol = { git = "https://github.com/Kamino-Finance/pyth-lazer-public.git", branch = "lazer_on_anchor_0.28" }
 intbits = "0.2.0"
 pyth-solana-receiver-sdk = "0.1.0"
 static_assertions = "1.1.0"
